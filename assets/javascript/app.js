@@ -45,13 +45,14 @@ firebase.ref().on("child_added", function(childSnap) {
     // Moment for this time yesterday is bound to nowYesterday variable
     // Difference in minutes between the first train and nowYesterday is bound to calculatedTrainFirst variable
     // minsAway is calculated from the modulo of calculatedTrainFirst and the frequency of the trains arriving
-    var formattedTrainFirst = moment(train.first, "HH:mm")
-    console.log(formattedTrainFirst)
-    var nowYesterday = moment().subtract(1, "days")
-    console.log(nowYesterday);
-    var calculatedTrainFirst = formattedTrainFirst.diff(nowYesterday, "minutes")
-    console.log(calculatedTrainFirst)
-    var minsAway = calculatedTrainFirst % train.frequency
+    var formattedTrainFirst = moment(train.first, "HH:mm");
+    console.log(formattedTrainFirst);
+    var firstTrainYesterday = formattedTrainFirst.subtract(1, "days");
+    console.log("firstTrainYesterday: " + firstTrainYesterday.format("MM/DD/YY HH:mm"))
+    var calculatedTrainFirst = moment().diff(firstTrainYesterday, "minutes");
+    console.log("calculatedTrainFirst: " + calculatedTrainFirst);
+    var minsAway = train.frequency - (calculatedTrainFirst % train.frequency);
+    console.log("train.frequency: " + train.frequency);
 
     // Info is organized into td inside a tr to be displayed to the user
     var newRow = $("<tr>").append(
