@@ -48,7 +48,7 @@ firebase.ref().on("child_added", function(childSnap) {
     var formattedTrainFirst = moment(train.first, "HH:mm");
     console.log(formattedTrainFirst);
     var firstTrainYesterday = formattedTrainFirst.subtract(1, "days");
-    console.log("firstTrainYesterday: " + firstTrainYesterday.format("MM/DD/YY HH:mm"))
+    console.log("firstTrainYesterday: " + firstTrainYesterday.format("MM/DD/YY HH:mm"));
     var calculatedTrainFirst = moment().diff(firstTrainYesterday, "minutes");
     console.log("calculatedTrainFirst: " + calculatedTrainFirst);
     var minsAway = train.frequency - (calculatedTrainFirst % train.frequency);

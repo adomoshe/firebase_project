@@ -9,53 +9,56 @@ var config = {
 firebase.initializeApp(config);
 var firebase = firebase.database();
 
-var choice = {
-    playerOne: "",
-    playerTwo: ""
+var content = {
+    choice: {
+        playerOne: "",
+        playerTwo: ""
+    }
 };
-firebase.ref().set(choice)
+firebase.ref().set(content)
 
 var firstPlayerPlayed = false;
 var play = true;
 
-$(".btn").on("click", function() {
-        if (firstPlayerPlayed == false && play == true){
-        choice.playerOne = $(this).attr("id");
-        console.log("playerone: " + choice.playerOne);
+$(".btn").on("click", function () {
+    if (firstPlayerPlayed == false && play == true) {
+        content.choice.playerOne = $(this).attr("id");
+        console.log("playerone: " + content.choice.playerOne);
+        firebase.ref().child(content.choice.playerOne).set(content.choice.playerOne);
         firstPlayerPlayed = true;
     } else {
-        choice.playerTwo = $(this).attr("id");
-        console.log("playertwo: " + choice.playerTwo);
+        content.choice.playerTwo = $(this).attr("id");
+        console.log("playertwo: " + content.choice.playerTwo);
     };
 });
 
 var choices = ["r", "p", "s"];
 
-$(".btn").on("click", function() { 
-if (choice.playerOne && choice.playerTwo != false) {
-        var one = choices.indexOf(choice.playerOne);
-        var two = choices.indexOf(choice.playerTwo);
+$(".btn").on("click", function () {
+    if (content.choice.playerOne && content.choice.playerTwo != false) {
+        var one = choices.indexOf(content.choice.playerOne);
+        var two = choices.indexOf(content.choice.playerTwo);
         console.log(one);
         console.log(two);
 
         if (one == two) {
-            alert("It's a tie!")
+            return alert("It's a tie!")
         }
 
         if (one == choices.length - 1 && two == 0) {
-            alert("Player two wins!")
+            return alert("Player two wins!")
         }
 
         if (two == choices.length - 1 && one == 0) {
-            alert("Player one wins!")
+            return alert("Player one wins!")
         }
 
         if (one < two) {
-            alert("Player two wins!")
+            return alert("Player two wins!")
         }
 
         else {
-            alert("Player one wins!")
+            return alert("Player one wins!")
         }
     };
 });
